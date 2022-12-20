@@ -16,6 +16,12 @@ class NewVisitorTest(unittest.TestCase):
         """демонтаж"""
         self.browser.quit()
 
+    def check_for_row_in_list_table(self, row_text):
+        """Подверждение строки в таблице списка"""
+        table = self.browser.find_element('id', 'id_list_table')
+        rows = table.find_elements('tag name', 'tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
     def test_can_start_a_list_and_retrieve_it_later(self):
         """тест: можно начать список и получить его позже """
         # домашняя страница
@@ -33,10 +39,7 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys('Купить павлиньи перья')
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
-
-        table = self.browser.find_element('id', 'id_list_table')
-        rows = table.find_elements('tag name', 'tr')
-        self.assertIn('1: Купить павлиньи перья', [row.text for row in rows])
+        self.check_for_row_in_list_table('1: Купить павлиньи перья')
 
         # Текстовое поле по-прежнему приглашает ее добавить еще один элемент
         # Она вводит  "Сделать мушку из павлиньих перьев"
@@ -46,13 +49,8 @@ class NewVisitorTest(unittest.TestCase):
         time.sleep(1)
 
         # Таблица обновляется  и теперь показывает оба элемента ее списка
-        table = self.browser.find_element('id', 'id_list_table')
-        rows = table.find_elements('tag name', 'tr')
-        self.assertIn('1: Купить павлиньи перья', [row.text for row in rows])
-        self.assertIn(
-            '2: Сделать мушку из павлиньих перьев',
-            [row.text for row in rows]
-        )
+        self.check_for_row_in_list_table('1: Купить павлиньи перья')
+        self.check_for_row_in_list_table('2: Сделать мушку из павлиньих перьев')
 
         self.fail('Закончить тест!')
 
