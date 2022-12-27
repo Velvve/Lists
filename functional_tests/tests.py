@@ -51,13 +51,13 @@ class NewVisitorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: Купить павлиньи перья')
 
         # Текстовое поле по-прежнему приглашает ее добавить еще один элемент
-        # Она вводит  "Сделать мушку из павлиньих перьев"
+        # Она вводит "Сделать мушку из павлиньих перьев"
         inputbox = self.browser.find_element('id', 'id_new_item')
         inputbox.send_keys('Сделать мушку из павлиньих перьев')
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
 
-        # Таблица обновляется  и теперь показывает оба элемента ее списка
+
+        # Таблица обновляется и теперь показывает оба элемента ее списка
         self.wait_for_row_in_list_table('1: Купить павлиньи перья')
         self.wait_for_row_in_list_table('2: Сделать мушку из павлиньих перьев')
 
@@ -72,7 +72,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Она замечает что ее список имеет уникальный URL- адрес
         edith_list_url = self.browser.current_url
-        self.assertRegex(edith_list_url, '/list/.+')
+        self.assertRegex(edith_list_url, '/lists/.+')
 
         # Теперь новый пользователь, Френсис, переходит на сайт.
 
@@ -81,7 +81,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.quit()
         self.browser = webdriver.Firefox()
 
-        # Френсис посещает домашнюю страницу. Нет некаких признаков списка Эдит
+        # Френсис посещает домашнюю страницу. Нет не каких признаков списка Эдит
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element('tag name', 'body').text
         self.assertNotIn('Купить павлиньи перья', page_text)
