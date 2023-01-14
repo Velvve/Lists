@@ -1,3 +1,4 @@
+import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -8,11 +9,14 @@ MAX_WAIT = 10
 
 
 class NewVisitorTest(StaticLiveServerTestCase):
-    """тест нового посетитея"""
+    """тест нового посетителя"""
 
     def setUp(self) -> None:
         """установка"""
         self.browser = webdriver.Firefox()
+        staging_server = os.environ.get('STAGING_SERVER')
+        if staging_server:
+            self.live_server_url = 'http://' + staging_server
 
     def tearDown(self) -> None:
         """демонтаж"""
@@ -126,5 +130,3 @@ class NewVisitorTest(StaticLiveServerTestCase):
             512,
             delta=10
         )
-
-
