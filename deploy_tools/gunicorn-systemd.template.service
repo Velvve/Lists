@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn server for SITENAME
+
+[Service]
+Restart=on-failure
+User=velwe
+WorkingDirectory=/home/velwe/sites/SITENAME/source
+ExecStart=/home/velwe/sites/beautiful-list.site/virtualenv/bin/gunicorn \
+        --bind unix:/tmt/beautiful-list.site.socket \
+        superlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
