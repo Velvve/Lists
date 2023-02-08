@@ -88,7 +88,6 @@ class ListViewTest(TestCase):
         self.assertEqual(response.context['list'], correct_list)
 
 
-
 class NewListTest(TestCase):
     """тест нового списка"""
 
