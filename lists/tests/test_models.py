@@ -1,5 +1,6 @@
 from django.test import TestCase
 from lists.models import Item, List
+from django.core.exceptions import ValidationError
 
 
 class ListAndModelsTest(TestCase):
@@ -37,3 +38,13 @@ class ListAndModelsTest(TestCase):
         list_ = List.objects.create()
         Item.objects.create(text='itemey 1', list=list_)
         Item.objects.create(text='itemey 2', list=list_)
+
+    def test_cannot_save_empty_list_items(self):
+        """тест: нельзя добавить пустой элемент списка"""
+        list_ = List.objects.create()
+        item = Item(list=list_, text='')
+        with self.assertRaises(ValidationError):
+            item.save()
+            item.full_clean()
+
+
