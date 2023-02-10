@@ -36,7 +36,6 @@ class ItemValidationTest(FunctionalTest):
         # Заполнение новыми элементами
         self.browser.find_element('id', 'id_new_item').send_keys('Make tea')
         self.browser.find_element('id', 'id_new_item').send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: But milk')
+        self.wait_for_row_in_list_table('1: Buy milk')
         self.wait_for_row_in_list_table('2: Make tea')
 
-        self.fail('Напиши меня')
