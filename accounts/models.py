@@ -1,5 +1,9 @@
 from django.db import models
+from django.contrib import auth
 import uuid
+
+
+auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
 
 
 class User(models.Model):
@@ -13,6 +17,5 @@ class User(models.Model):
 
 class Token(models.Model):
     """маркер"""
-
     email = models.EmailField()
     uid = models.CharField(max_length=40, default=uuid.uuid4)
