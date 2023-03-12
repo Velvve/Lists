@@ -9,6 +9,7 @@ class PasswordlessAuthenticationBackend(object):
     def authenticate(self, uid):
         """аутентифицировать"""
         try:
+            print('uid', file=sys.stderr)
             token = Token.objects.get(uid=uid)
             return User.objects.get(email=token.email)
         except User.DoesNotExist:
