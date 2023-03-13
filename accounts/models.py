@@ -5,9 +5,6 @@ from django.contrib import auth
 import uuid
 
 
-auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
-
-
 class User(models.Model):
     """пользователь"""
     email = models.EmailField(primary_key=True)

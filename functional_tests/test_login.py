@@ -51,7 +51,7 @@ class LoginTest(FunctionalTest):
         self.assertIn(TEST_EMAIL, navbar.text)
 
         # Она решает выйти из системы
-        self.browser.find_element('text', 'Log out').click()
+        self.browser.find_element('link text', 'Log out').click()
 
         # Она вышла из системы
         self.wait_for(
