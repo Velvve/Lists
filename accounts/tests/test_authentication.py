@@ -12,7 +12,7 @@ class AuthenticateTest(TestCase):
     def test_returns_None_if_no_such_token(self):
         """тест: возращается None, если нет такого маркера"""
         result = PasswordlessAuthenticationBackend().authenticate(
-            'no-such-token'
+            'no-such-token', None
         )
         self.assertIsNone(result)
 
